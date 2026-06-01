@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+{% block title %}Login - Life Pilot AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center auth-page">
+    <div class="col-md-6 col-lg-4">
+        <div class="card auth-card">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4 auth-title">
+                    <i class="bi bi-rocket-takeoff text-primary"></i> Login
+                </h2>
+                
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                        <label class="form-check-label" for="remember">Remember me</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-auth w-100">
+                        <i class="bi bi-box-arrow-in-right"></i> Login
+                    </button>
+                </form>
+                
+                <hr>
+                <p class="text-center mb-0">
+                    Don't have an account? 
+                    <a class="auth-link" href="{{ url_for('auth.register') }}">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Search Scholarships - Life Pilot AI{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="mb-4">
+        <i class="bi bi-search"></i> Find Scholarships
+    </h1>
+
+    <form method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   name="q"
+                   placeholder="Search scholarships..."
+                   value="{{ query }}">
+            <button class="btn btn-primary" type="submit">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <div class="row">
+
+        {% if scholarships %}
+
+            {% for scholarship in scholarships %}
+
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+
+                        <h4>{{ scholarship.name }}</h4>
+
+                        <p>
+                            <strong>Provider:</strong>
+                            {{ scholarship.provider }}
+                        </p>
+
+                        <p>
+                            <strong>Amount:</strong>
+                            {{ scholarship.amount }}
+                        </p>
+
+                        <p>
+                            {{ scholarship.description }}
+                        </p>
+
+                        {% if scholarship.url %}
+                        <a href="{{ scholarship.url }}"
+                           target="_blank"
+                           class="btn btn-primary">
+                            Visit Scholarship
+                        </a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="col-12">
+            <div class="alert alert-warning">
+                No scholarships found.
+            </div>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

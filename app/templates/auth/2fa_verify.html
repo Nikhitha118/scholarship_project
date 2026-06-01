@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}2FA Verification - Life Pilot AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <h3 class="text-center mb-4">
+                    <i class="bi bi-shield-lock text-primary"></i> 2FA Verification
+                </h3>
+                
+                <p class="text-center">Enter the code from your authenticator app</p>
+                
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="token" class="form-label">Verification Code</label>
+                        <input type="text" class="form-control" id="token" name="token" 
+                               pattern="[0-9]{6}" maxlength="6" required 
+                               placeholder="123456">
+                        <div class="form-text">6-digit code from your authenticator app</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-check-circle"></i> Verify
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

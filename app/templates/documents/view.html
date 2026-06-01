@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Document</title>
+</head>
+<body>
+    <h1>{{ document.filename }}</h1>
+
+    <p>Document Type: {{ document.document_type }}</p>
+    <p>File Path: {{ document.file_path }}</p>
+
+    <a href="{{ url_for('documents.index') }}">Back</a>
+</body>
+</html>

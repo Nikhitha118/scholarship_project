@@ -1,0 +1,225 @@
+/* ===== Global ===== */
+
+body {
+    background: #f4f7fc;
+    font-family: 'Segoe UI', sans-serif;
+    color: #2d3748;
+}
+
+/* ===== Navbar ===== */
+
+.navbar {
+    background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* ===== Cards ===== */
+
+.card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-header {
+    background: white;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    border-radius: 18px 18px 0 0 !important;
+}
+
+/* ===== Dashboard Stats ===== */
+
+.text-primary {
+    color: #2563eb !important;
+}
+
+.text-success {
+    color: #16a34a !important;
+}
+
+.text-warning {
+    color: #f59e0b !important;
+}
+
+/* ===== Scholarship Cards ===== */
+
+.list-group-item {
+    border: none;
+    border-radius: 12px !important;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.list-group-item:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
+}
+
+/* ===== Buttons ===== */
+
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #2563eb;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-success {
+    border: none;
+}
+
+/* ===== Forms ===== */
+
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(37,99,235,.2);
+}
+
+/* ===== Alerts ===== */
+
+.alert {
+    border-radius: 12px;
+    border: none;
+}
+
+/* ===== Footer ===== */
+
+footer {
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 50px;
+}
+
+/* ===== Tables ===== */
+
+table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+thead {
+    background: #2563eb;
+    color: white;
+}
+
+/* ===== Profile Page ===== */
+
+.profile-card {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+}
+/* ===== Login & Register Pages ===== */
+
+.auth-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    backdrop-filter: blur(10px);
+}
+
+.auth-card .card-body {
+    padding: 40px;
+}
+
+.auth-title {
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.auth-title i {
+    font-size: 2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 15px rgba(37,99,235,0.15);
+}
+
+.btn-auth {
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.auth-link {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}

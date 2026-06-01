@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Life Pilot AI{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">
+    <i class="bi bi-speedometer2"></i> Dashboard
+</h1>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Applications</h5>
+                <h2 class="text-primary">{{ stats.total }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Submitted</h5>
+                <h2 class="text-warning">{{ stats.submitted }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Approved</h5>
+                <h2 class="text-success">{{ stats.approved }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="bi bi-stars"></i> Recommended Scholarships for You</h5>
+            </div>
+            <div class="card-body">
+                {% if recommendations %}
+                    <div class="list-group">
+                        {% for scholarship in recommendations %}
+                            <a href="{{ url_for('scholarships.details', id=scholarship.id) }}" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">{{ scholarship.name }}</h6>
+                                    <small>₹{{ scholarship.amount }}</small>
+                                </div>
+                                <p class="mb-1 text-truncate">{{ scholarship.description[:100] }}...</p>
+                                <small class="text-muted">{{ scholarship.provider }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">Complete your profile to get recommendations</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="bi bi-file-earmark-text"></i> Recent Applications</h5>
+            </div>
+            <div class="card-body">
+                {% if applications %}
+                    <div class="list-group">
+                        {% for app in applications[:5] %}
+                            <a href="{{ url_for('scholarships.application_details', id=app.id) }}" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small>{{ app.scholarship.name[:30] }}...</small>
+                                    <span class="badge bg-{% if app.status == 'approved' %}success{% elif app.status == 'submitted' %}warning{% else %}secondary{% endif %}">
+                                        {{ app.status }}
+                                    </span>
+                                </div>
+                                <small class="text-muted">{{ app.created_at.strftime('%d %b %Y') }}</small>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No applications yet</p>
+                    <a href="{{ url_for('scholarships.search') }}" class="btn btn-primary btn-sm">
+                        Find Scholarships
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ url_for('scholarships.search') }}" class="btn btn-primary btn-lg">
+        <i class="bi bi-search"></i> Search Scholarships
+    </a>
+    <a href="{{ url_for('documents.upload') }}" class="btn btn-success btn-lg ms-2">
+        <i class="bi bi-upload"></i> Upload Documents
+    </a>
+</div>
+{% endblock %}

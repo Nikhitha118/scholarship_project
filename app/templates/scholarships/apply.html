@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Apply - {{ scholarship.name }} - Life Pilot AI{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('scholarships.search') }}">Scholarships</a></li>
+        <li class="breadcrumb-item active">{{ scholarship.name }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4">
+    <i class="bi bi-file-earmark-text"></i> Apply for {{ scholarship.name }}
+</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5><i class="bi bi-magic"></i> AI Auto-Filled Application</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-success">
+                    <i class="bi bi-check-circle"></i> Your information has been automatically filled
+                    based on your profile and uploaded documents.
+                </p>
+                
+                <form method="POST">
+                    <h6 class="mt-4">Personal Information</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('full_name', '') }}" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" 
+                                   value="{{ application_data.get('email', '') }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <h6 class="mt-4">Academic Information</h6>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">CGPA</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('cgpa', '') }}" readonly>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Course</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('course', '') }}" readonly>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Year of Study</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('year_of_study', '') }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <h6 class="mt-4">Additional Information</h6>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('category', '') }}" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Income (₹)</label>
+                            <input type="text" class="form-control" 
+                                   value="{{ application_data.get('income', '') }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-4">
+                        <i class="bi bi-exclamation-triangle"></i> 
+                        <strong>Important:</strong> Review all information carefully before submitting.
+                        You can edit your profile if any information is incorrect.
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check-circle"></i> Create Application for Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6><i class="bi bi-info-circle"></i> Scholarship Details</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Amount:</strong> ₹{{ scholarship.amount }}</p>
+                <p><strong>Provider:</strong> {{ scholarship.provider }}</p>
+                <p><strong>Category:</strong> {{ scholarship.category }}</p>
+                {% if scholarship.min_cgpa %}
+                    <p><strong>Min CGPA:</strong> {{ scholarship.min_cgpa }}</p>
+                {% endif %}
+                {% if scholarship.max_income %}
+                    <p><strong>Max Income:</strong> ₹{{ scholarship.max_income }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-{% if eligibility.is_eligible %}success{% else %}warning{% endif %}">
+                <h6 class="{% if eligibility.is_eligible %}text-white{% endif %}">
+                    <i class="bi bi-{% if eligibility.is_eligible %}check-circle{% else %}exclamation-triangle{% endif %}"></i>
+                    Eligibility: {% if eligibility.is_eligible %}ELIGIBLE{% else %}MAY NOT BE ELIGIBLE{% endif %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Score:</strong> {{ eligibility.score }}/100</p>
+                <p><strong>Notes:</strong> {{ eligibility.notes }}</p>
+                {% if eligibility.missing %}
+                    <p><strong>Missing:</strong> {{ ', '.join(eligibility.missing) }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
