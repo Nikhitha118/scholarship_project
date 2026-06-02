@@ -35,16 +35,37 @@ def index():
 @dashboard_bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
+
     if request.method == 'POST':
-        current_user.cgpa = float(request.form.get('cgpa', 0))
-        current_user.course = request.form.get('course', '')
-        current_user.year_of_study = int(request.form.get('year_of_study', 1))
-        current_user.category = request.form.get('category', '')
-        current_user.income = int(request.form.get('income', 0))
-        current_user.phone = request.form.get('phone', '')
-        
+
+        current_user.cgpa = float(request.form.get('cgpa') or 0)
+
+        current_user.course = request.form.get('course')
+
+        current_user.branch = request.form.get('branch')
+
+        current_user.college_name = request.form.get('college_name')
+
+        current_user.year_of_study = int(
+            request.form.get('year_of_study') or 1
+        )
+
+        current_user.category = request.form.get('category')
+
+        current_user.gender = request.form.get('gender')
+
+        current_user.state = request.form.get('state')
+
+        current_user.income = int(
+            request.form.get('income') or 0
+        )
+
+        current_user.phone = request.form.get('phone')
+
         db.session.commit()
-        flash('Profile updated successfully!', 'success')
+
+        flash("Profile updated successfully!", "success")
+
         return redirect(url_for('dashboard.profile'))
-    
+
     return render_template('dashboard/profile.html')
