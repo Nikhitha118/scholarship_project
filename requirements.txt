@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Werkzeug
+PyPDF2
+requests
+beautifulsoup4
+gunicorn
