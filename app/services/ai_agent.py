@@ -6,6 +6,7 @@ from app.models.application import Application, ApplicationDocument
 from app.services.eligibilty_checker import EligibilityChecker
 from app.services.document_processor import DocumentProcessor
 from app.services.scholarship_searcher import ScholarshipSearcher
+from app import db
 
 class AIAgent:
     """Main AI Agent for Life Pilot"""
@@ -15,16 +16,8 @@ class AIAgent:
         self.document_processor = DocumentProcessor()
         self.scholarship_searcher = ScholarshipSearcher()
     
-    def search_scholarships(self, user: User, query: str = None) -> List[Scholarship]:
-        """
-        Search for scholarships based on user profile and query
-        """
-        if query:
-            # Search using natural language query
-            results = self.scholarship_searcher.search_by_query(query, user)
-            return results
-
-        
+    def search_scholarships(self, user, query=None):
+        # Always show eligible scholarships
         return self.scholarship_searcher.search_by_profile(user)
     
     def check_eligibility(self, user: User, scholarship: Scholarship) -> Dict:
@@ -102,7 +95,7 @@ class AIAgent:
         Auto-attach relevant documents from user's uploads
         """
         required_docs = scholarship.required_documents or []
-        user_docs = user.documents.all()
+        user_docs = application.user.documents
         
         for req_doc_type in required_docs:
             for doc in user_docs:

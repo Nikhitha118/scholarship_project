@@ -10,24 +10,20 @@ class ScholarshipSearcher:
     def __init__(self):
         self.web_search = WebScholarshipSearch()
 
-    def search_by_profile(self, user: User) -> List[Scholarship]:
-        """Search scholarships matching user profile"""
+    def search_by_profile(self, user):
+        scholarships = Scholarship.query.all()
 
-        query = Scholarship.query
+        print("TOTAL SCHOLARSHIPS =", len(scholarships))
 
-        if user.course:
-            query = query.filter(
-                (Scholarship.course_type.is_(None)) |
-                (Scholarship.course_type.contains(user.course))
-            )
+        eligible = []
 
-        if user.category:
-            query = query.filter(
-                (Scholarship.accepted_categories.is_(None)) |
-                (Scholarship.accepted_categories.contains([user.category]))
-            )
+        for scholarship in scholarships:
+            if scholarship.is_eligible(user):
+                eligible.append(scholarship)
 
-        return query.all()
+        print("ELIGIBLE =", len(eligible))
+
+        return eligible
 
     def search_by_query(self, query_text: str, user: User):
         """

@@ -36,15 +36,33 @@ class Scholarship(db.Model):
     
     def is_eligible(self, user):
         """Check if user meets eligibility criteria"""
+
+        print("==========")
+        print("Scholarship:", self.name)
+        print("User Income:", user.income)
+        print("Max Income:", self.max_income)
+        print("User Category:", user.category)
+        print("Accepted Categories:", self.accepted_categories)
+
         if self.min_cgpa and (user.cgpa is None or user.cgpa < self.min_cgpa):
+            print("Failed CGPA")
             return False
+
         if self.max_income and (user.income is None or user.income > self.max_income):
+            print("Failed Income")
             return False
-        if self.accepted_categories and user.category not in self.accepted_categories:
-            return False
-        if self.course_type and user.course and self.course_type not in user.course:
-            return False
+
+        if self.accepted_categories:
+            user_cat = str(user.category).upper()
+            accepted = [str(cat).upper() for cat in self.accepted_categories]
+
+            if user_cat not in accepted:
+                print("Failed Category")
+                return False
+
+       # if self.course_type and user.course and self.course_type not in user.course:
+            #print("Failed Course")
+         #   return False
+
+        print("Eligible")
         return True
-    
-    def __repr__(self):
-        return f'<Scholarship {self.name}>'

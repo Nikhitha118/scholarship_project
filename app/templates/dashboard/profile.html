@@ -4,18 +4,63 @@
 
 {% block content %}
 
+<div class="container py-4">
+
+```
 <div class="row justify-content-center">
 
-    <div class="col-md-8">
+    <div class="col-lg-10">
 
-        <div class="card shadow-lg">
+        <div class="card shadow-lg border-0">
 
             <div class="card-body p-5">
 
-                <h2 class="mb-4">
-                    <i class="bi bi-person-circle text-primary"></i>
-                    My Profile
-                </h2>
+                <!-- Profile Header -->
+                <div class="text-center mb-5">
+
+                    <div class="profile-avatar mx-auto mb-3">
+                        {{ current_user.username[0]|upper }}
+                    </div>
+
+                    <h2 class="fw-bold">{{ current_user.username }}</h2>
+
+                    <p class="text-muted">
+                        {{ current_user.email }}
+                    </p>
+
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="row text-center mb-5">
+
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <h6 class="text-muted">CGPA</h6>
+                            <h3>{{ current_user.cgpa or '--' }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <h6 class="text-muted">Course</h6>
+                            <h3>{{ current_user.course or '--' }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="stat-card">
+                            <h6 class="text-muted">Year</h6>
+                            <h3>{{ current_user.year_of_study or '--' }}</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Form -->
+                <h4 class="mb-4">
+                    <i class="bi bi-person-lines-fill text-primary"></i>
+                    Personal Information
+                </h4>
 
                 <form method="POST">
 
@@ -27,6 +72,7 @@
                                    step="0.01"
                                    class="form-control"
                                    name="cgpa"
+                                   placeholder="Enter your CGPA"
                                    value="{{ current_user.cgpa or '' }}">
                         </div>
 
@@ -35,6 +81,7 @@
                             <input type="text"
                                    class="form-control"
                                    name="course"
+                                   placeholder="Enter your course"
                                    value="{{ current_user.course or '' }}">
                         </div>
 
@@ -43,6 +90,7 @@
                             <input type="number"
                                    class="form-control"
                                    name="year_of_study"
+                                   placeholder="Enter year of study"
                                    value="{{ current_user.year_of_study or '' }}">
                         </div>
 
@@ -51,6 +99,7 @@
                             <input type="text"
                                    class="form-control"
                                    name="category"
+                                   placeholder="Enter category"
                                    value="{{ current_user.category or '' }}">
                         </div>
 
@@ -59,21 +108,23 @@
                             <input type="number"
                                    class="form-control"
                                    name="income"
+                                   placeholder="Enter annual income"
                                    value="{{ current_user.income or '' }}">
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-4">
                             <label class="form-label">Phone</label>
                             <input type="text"
                                    class="form-control"
                                    name="phone"
+                                   placeholder="Enter phone number"
                                    value="{{ current_user.phone or '' }}">
                         </div>
 
                     </div>
 
-                    <button class="btn btn-primary">
-                        <i class="bi bi-check-circle"></i>
+                    <button type="submit" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-check-circle-fill"></i>
                         Save Profile
                     </button>
 
@@ -84,6 +135,9 @@
         </div>
 
     </div>
+
+</div>
+```
 
 </div>
 
