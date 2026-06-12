@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2>{{ scholarship.name }}</h2>
+
+    <p><strong>Amount:</strong> {{ scholarship.amount }}</p>
+    <p><strong>Category:</strong> {{ scholarship.category }}</p>
+    <p><strong>Provider:</strong> {{ scholarship.provider }}</p>
+
+    <hr>
+
+    <h4>Eligibility</h4>
+    {% if eligibility %}
+        <div class="alert alert-success">
+            You are eligible 🎉
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            Not eligible ❌
+        </div>
+    {% endif %}
+
+    <a href="/scholarships/{{ scholarship.id }}/apply"
+       class="btn btn-primary">
+        Apply Now
+    </a>
+
+</div>
+{% endblock %}

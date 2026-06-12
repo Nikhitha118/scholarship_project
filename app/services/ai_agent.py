@@ -12,59 +12,51 @@ class AIAgent:
     """Main AI Agent for Life Pilot"""
     
     def __init__(self):
-
         self.eligibility_checker = EligibilityChecker()
         self.document_processor = DocumentProcessor()
         self.scholarship_searcher = ScholarshipSearcher()
+
     def search_scholarships(self, user, query=None):
-    
-    def search_scholarships(self, user, query=None):
-        # Always show eligible scholarships
-     if query:
+        """Search scholarships by user profile or query."""
+        if query:
+            results = self.scholarship_searcher.search_by_query(query, user)
 
-        results = self.scholarship_searcher.search_by_query(query, user)
+            eligible_scholarships = []
+            for scholarship in results:
+                score = 0
 
-        eligible_scholarships = []
+                if scholarship.get("min_cgpa") is None:
+                    score += 25
+                elif user.cgpa and user.cgpa >= scholarship["min_cgpa"]:
+                    score += 25
 
-        for scholarship in results:
+                if scholarship.get("max_income") is None:
+                    score += 25
+                elif user.income and user.income <= scholarship["max_income"]:
+                    score += 25
 
-            score = 0
+                if scholarship.get("gender") is None:
+                    score += 25
+                elif getattr(user, "gender", None) == scholarship["gender"]:
+                    score += 25
 
-            if scholarship.get("min_cgpa") is None:
-                score += 25
-            elif user.cgpa and user.cgpa >= scholarship["min_cgpa"]:
-                score += 25
+                if scholarship.get("category") is None:
+                    score += 25
+                elif getattr(user, "category", None) == scholarship["category"]:
+                    score += 25
 
-            if scholarship.get("max_income") is None:
-                score += 25
-            elif user.income and user.income <= scholarship["max_income"]:
-                score += 25
+                scholarship["eligibility_score"] = score
+                if score >= 50:
+                    eligible_scholarships.append(scholarship)
 
-            if scholarship.get("gender") is None:
-                score += 25
-            elif getattr(user, "gender", None) == scholarship["gender"]:
-                score += 25
-
-            if scholarship.get("category") is None:
-                score += 25
-            elif getattr(user, "category", None) == scholarship["category"]:
-                score += 25
-
-            scholarship["eligibility_score"] = score
-
-            if score >= 50:
-                eligible_scholarships.append(scholarship)
-
-        eligible_scholarships.sort(
-            key=lambda x: x["eligibility_score"],
-            reverse=True
-        )
-
-        return eligible_scholarships
+            eligible_scholarships.sort(
+                key=lambda x: x["eligibility_score"],
+                reverse=True
+            )
+            return eligible_scholarships
 
         return self.scholarship_searcher.search_by_profile(user)
-    
-    
+
     def check_eligibility(self, user: User, scholarship: Scholarship) -> Dict:
         """
         Check detailed eligibility for a scholarship

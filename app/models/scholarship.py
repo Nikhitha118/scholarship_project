@@ -60,9 +60,9 @@ class Scholarship(db.Model):
                 print("Failed Category")
                 return False
 
-       # if self.course_type and user.course and self.course_type not in user.course:
-            #print("Failed Course")
-         #   return False
+        #if self.course_type and user.course and self.course_type not in user.course:
+         #   print("Failed Course")
+          #  return False
 
         print("Eligible")
         return True

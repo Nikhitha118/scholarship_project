@@ -1,79 +1,90 @@
 {% extends "base.html" %}
-{% block title %}Search Scholarships - Life Pilot AI{% endblock %}
+
+{% block title %}Scholarships{% endblock %}
 
 {% block content %}
 
 <div class="container mt-4">
 
-    <h1 class="mb-4">
-        <i class="bi bi-search"></i> Find Scholarships
+```
+<div class="text-center mb-5">
+    <h1 class="fw-bold">
+        🎯 Scholarships You Are Eligible For
     </h1>
 
-    <form method="GET" class="mb-4">
-        <div class="input-group">
-            <input type="text"
-                   class="form-control"
-                   name="q"
-                   placeholder="Search scholarships..."
-                   value="{{ query }}">
-            <button class="btn btn-primary" type="submit">
-                Search
-            </button>
-        </div>
-    </form>
+    <p class="text-muted">
+        Based on your profile information and uploaded documents
+    </p>
 
-    <div class="row">
+    <span class="badge bg-primary fs-6 px-3 py-2">
+        {{ scholarships|length }} Scholarships Matched
+    </span>
+</div>
 
-        {% if scholarships %}
+<div class="row">
 
-            {% for scholarship in scholarships %}
+    {% if scholarships %}
 
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
+        {% for scholarship in scholarships %}
 
-                        <h4>{{ scholarship.name }}</h4>
+        <div class="col-lg-6 mb-4">
 
-                        <p>
-                            <br>
-                            <strong>Eligibility Score:</strong>
-                            {{ scholarship.eligibility_score }}%
-                        </p>
+            <div class="card border-0 shadow h-100">
 
-                        <p>
-                            <strong>Amount:</strong>
-                            {{ scholarship.amount }}
-                        </p>
+                <div class="card-body">
 
-                        <p>
-                            {{ scholarship.description }}
-                        </p>
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="fw-bold">
+                            {{ scholarship.name }}
+                        </h4>
 
-                        {% if scholarship.url %}
-                        <a href="{{ scholarship.url }}"
-                           target="_blank"
-                           class="btn btn-primary">
-                            Visit Scholarship
-                        </a>
-                        {% endif %}
-
+                        <span class="badge bg-success">
+                            Eligible
+                        </span>
                     </div>
+
+                    <hr>
+
+                    <p class="mb-3">
+                        💰 <strong>Amount:</strong>
+                        ₹{{ scholarship.amount }}
+                    </p>
+
+                    <p class="mb-3">
+                        📂 <strong>Category:</strong>
+                        {{ scholarship.category }}
+                    </p>
+
+                    <p class="mb-4">
+                        🏢 <strong>Provider:</strong>
+                        {{ scholarship.provider }}
+                    </p>
+
+                    <a href="/scholarships/{{ scholarship.id }}"
+                       class="btn btn-primary w-100">
+                        View Details
+                    </a>
+
                 </div>
+
             </div>
 
-            {% endfor %}
-
-        {% else %}
-
-        <div class="col-12">
-            <div class="alert alert-warning">
-                No scholarships found.
-            </div>
         </div>
 
-        {% endif %}
+        {% endfor %}
 
+    {% else %}
+
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            No eligible scholarships found.
+        </div>
     </div>
+
+    {% endif %}
+
+</div>
+```
 
 </div>
 
